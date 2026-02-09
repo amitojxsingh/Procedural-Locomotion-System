@@ -1,8 +1,7 @@
-#include "ProceduralLocomotionAnimInstance.h"
+                                #include "ProceduralLocomotionAnimInstance.h"
 
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "KismetAnimationLibrary.h"
 
 UProceduralLocomotionAnimInstance::UProceduralLocomotionAnimInstance() = default;
 
@@ -44,7 +43,7 @@ void UProceduralLocomotionAnimInstance::NativeUpdateAnimation(float DeltaSeconds
 	GroundSpeed = HorizontalVelocity.Size();
 
 	// Direction relative to the actor's facing (commonly fed into BlendSpaces)
-	Direction = UKismetAnimationLibrary::CalculateDirection(HorizontalVelocity, Character->GetActorRotation());
+	Direction = CalculateDirection(HorizontalVelocity, Character->GetActorRotation());
 
 	bIsAccelerating = MoveComp && (MoveComp->GetCurrentAcceleration().SizeSquared() > KINDA_SMALL_NUMBER);
 
