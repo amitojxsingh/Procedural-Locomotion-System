@@ -1,0 +1,14 @@
+{
+  "FileVersion": 3,
+  "EngineAssociation": "5.x",
+  "Category": "Games",
+  "Description": "Procedural Locomotion System (UE5 C++)",
+  "Modules": [
+    {
+      "Name": "ProceduralLocomotionSystem",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    }
+  ],
+  "Plugins": []
+}
