@@ -1,0 +1,42 @@
+# ==============================
+# Unreal Engine
+# ==============================
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+Build/
+
+# Unreal project files you may regenerate locally
+*.sln
+*.xcodeproj
+*.xcworkspace
+
+# UBT/IDE caches
+.vs/
+.idea/
+
+# ==============================
+# VS Code
+# ==============================
+.vscode/
+.history/
+*.code-workspace
+
+# ==============================
+# OS / Editor temp
+# ==============================
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# ==============================
+# Notes
+# ==============================
+# Do NOT ignore Unreal assets (.uasset/.umap) or the project file (.uproject).
+# If repo size becomes an issue, use Git LFS for large binary assets (typically Content/*).
