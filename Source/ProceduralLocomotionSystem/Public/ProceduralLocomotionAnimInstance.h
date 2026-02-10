@@ -66,6 +66,25 @@ protected:
 private:
 	void UpdateProceduralLeaning(float DeltaSeconds);
 
+	// --- Simple procedural bone animation (optional demo) ---
+	void UpdateProceduralBone(float DeltaSeconds);
+
+	// Bone to drive (example: head, spine_03, etc.)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Procedural|Bone", meta = (AllowPrivateAccess = "true"))
+	FName ProceduralBoneName = TEXT("head");
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Procedural|Bone", meta = (AllowPrivateAccess = "true"))
+	float ProceduralBonePitchAmplitude = 10.0f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Procedural|Bone", meta = (AllowPrivateAccess = "true"))
+	float ProceduralBoneYawAmplitude = 10.0f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Procedural|Bone", meta = (AllowPrivateAccess = "true"))
+	float ProceduralBoneSpeed = 1.5f;
+
+	// runtime
+	float ProceduralTime = 0.0f;
+
 	TWeakObjectPtr<class ACharacter> CachedCharacter;
 	float LastYawDegrees = 0.0f;
 };

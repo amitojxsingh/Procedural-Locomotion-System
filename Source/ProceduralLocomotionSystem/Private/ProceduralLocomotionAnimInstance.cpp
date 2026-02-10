@@ -2,6 +2,7 @@
 
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
+								#include "Components/SkeletalMeshComponent.h"
 
 UProceduralLocomotionAnimInstance::UProceduralLocomotionAnimInstance() = default;
 
@@ -48,6 +49,10 @@ void UProceduralLocomotionAnimInstance::NativeUpdateAnimation(float DeltaSeconds
 	bIsAccelerating = MoveComp && (MoveComp->GetCurrentAcceleration().SizeSquared() > KINDA_SMALL_NUMBER);
 
 	UpdateProceduralLeaning(DeltaSeconds);
+
+	// Simple demo: rotate a named bone procedurally so you can
+	// produce an animation without external assets.
+	UpdateProceduralBone(DeltaSeconds);
 }
 
 void UProceduralLocomotionAnimInstance::UpdateProceduralLeaning(float DeltaSeconds)
@@ -74,4 +79,32 @@ void UProceduralLocomotionAnimInstance::UpdateProceduralLeaning(float DeltaSecon
 	TargetLeanAngle = FMath::Clamp(TargetLeanAngle, -MaxLeanAngle, MaxLeanAngle);
 
 	LeanAngle = FMath::FInterpTo(LeanAngle, TargetLeanAngle, DeltaSeconds, LeanInterpSpeed);
+}
+
+void UProceduralLocomotionAnimInstance::UpdateProceduralBone(float DeltaSeconds)
+{
+	if (DeltaSeconds <= 0.0f)
+	{
+		return;
+	}
+
+	ProceduralTime += DeltaSeconds;
+
+	USkeletalMeshComponent* SkelComp = GetSkelMeshComponent();
+	if (!SkelComp || ProceduralBoneName.IsNone())
+	{
+		return;
+	}
+
+	const int32 BoneIndex = SkelComp->GetBoneIndex(ProceduralBoneName);
+	if (BoneIndex == INDEX_NONE)
+	{
+		return;
+	}
+
+	const float Pitch = FMath::Sin(ProceduralTime * ProceduralBoneSpeed) * ProceduralBonePitchAmplitude;
+	const float Yaw = FMath::Cos(ProceduralTime * ProceduralBoneSpeed) * ProceduralBoneYawAmplitude;
+
+	// Apply rotation in component space; you can change to EBoneSpaces::Type::WorldSpace if desired.
+	SkelComp->SetBoneRotationByName(ProceduralBoneName, FRotator(Pitch, Yaw, 0.0f), EBoneSpaces::ComponentSpace);
 }
